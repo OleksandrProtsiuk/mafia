@@ -52,4 +52,17 @@ class UserController extends AbstractController
 
         return $this->json(['status' => 'Errors', 'errors' => $form->getErrors()], Response::HTTP_FORBIDDEN);
     }
+
+    /**
+     * Test Route.
+     * @Rest\Post("/echo")
+     *
+     * @return Response
+     */
+    public function echoAction()
+    {
+        return $this->json([
+            'msg' => 'Its alive!',
+        ], Response::HTTP_OK);
+    }
 }
