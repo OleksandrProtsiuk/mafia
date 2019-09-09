@@ -28,3 +28,8 @@ services:
 
     sensio_framework_extra.view.listener:
         alias: Sensio\Bundle\FrameworkExtraBundle\EventListener\TemplateListener
+
+    Normalizer:
+        class: App\Normalizer\PostNormalizer
+        tags:
+            - { name: serializer.normalizer }
