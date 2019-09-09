@@ -58,7 +58,7 @@ class UserController extends AbstractController
      * @Rest\Get("/user/{id}", name="user_show")
      * @return Response
      */
-    public function show(tUser $user): Response
+    public function show(User $user): Response
     {
         if($user){
             return $this->json(['post' => $user,], Response::HTTP_OK);

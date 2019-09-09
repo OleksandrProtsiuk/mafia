@@ -8,7 +8,6 @@ use App\Entity\Room;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use FOS\RestBundle\Controller\Annotations as Rest;
-use App\Entity\User;
 use Symfony\Component\Routing\Annotation\Route;
 
 
