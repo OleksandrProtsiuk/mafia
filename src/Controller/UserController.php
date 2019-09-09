@@ -18,11 +18,11 @@ class UserController extends AbstractController
 {
     /**
      * Lists all Users
-     * @Rest\Get("/users")
+     * @Rest\Get("/users", name="users")
      *
      * @return Response
      */
-    public function getUsersAction()
+    public function index()
     {
         $repository = $this->getDoctrine()->getRepository(User::class);
         $users = $repository->findall();
@@ -31,11 +31,11 @@ class UserController extends AbstractController
 
     /**
      * Create User.
-     * @Rest\Post("/user")
+     * @Rest\Post("/user/new", name="user_new")
      *
      * @return Response
      */
-    public function postUserAction(Request $request)
+    public function new(Request $request)
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
@@ -54,8 +54,61 @@ class UserController extends AbstractController
     }
 
     /**
+     * Show User by id
+     * @Rest\Get("/user/{id}", name="user_show")
+     * @return Response
+     */
+    public function show(tUser $user): Response
+    {
+        if($user){
+            return $this->json(['post' => $user,], Response::HTTP_OK);
+        }
+        return $this->json(['Error' => 'No data in DB',], Response::HTTP_NOT_FOUND);
+    }
+
+    /**
+     * Edit User
+     * @Rest\Post("/user/{id}/edit", name="user_edit")
+     * @return Response
+     * @throws \Exception
+     */
+    public function edit(Request $request, User $user): Response
+    {
+        $form = $this->createForm(UserType::class, $user);
+        $data = json_decode($request->getContent(), true);
+
+        $form->submit($data);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->json([
+                'status' => 'ok',
+            ], Response::HTTP_CREATED);
+        }
+
+        return $this->json([
+            'status' => 'Error',
+            'errors' => $form->getErrors($form),
+        ], Response::HTTP_CONTINUE);
+    }
+
+    /**
+     * Delete User
+     * @Rest\Delete("/user/{id}/del", name="user_delete")
+     * @return Response
+     */
+    public function delete(User $user): Response
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($user);
+        $entityManager->flush();
+
+        return $this->json(['status' => 'ok'], Response::HTTP_OK);
+    }
+
+    /**
      * Test Route.
-     * @Rest\Post("/echo")
+     * @Rest\Post("/echo", name="echo")
      *
      * @return Response
      */
