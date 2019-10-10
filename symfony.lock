@@ -96,6 +96,9 @@
     "gedmo/doctrine-extensions": {
         "version": "v2.4.37"
     },
+    "harmbandstra/swagger-ui-bundle": {
+        "version": "4.1.0"
+    },
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
     },
@@ -137,6 +140,9 @@
         "files": [
             "config/packages/sensio_framework_extra.yaml"
         ]
+    },
+    "swagger-api/swagger-ui": {
+        "version": "v3.23.11"
     },
     "symfony/apache-pack": {
         "version": "1.0",

@@ -1,0 +1,35 @@
+openapi: 3.0.0
+info:
+  title: Mafia API
+  description: This is API docs.
+  version: 0.0.1
+
+components:
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+
+
+tags:
+  - name: User
+    description: Users CRUD endpoints
+
+
+paths:
+  /api/users/:
+    get:
+      security:
+        - BasicAuth: []
+      tags:
+        - User
+      summary: Returns a list of users.
+      description: Endpoint returns a JSON of users. `=> UserController::index`
+      responses:
+        '200':
+          description: __OK.__
+          content:
+            application/json:
+              example:
+                  {}
+
